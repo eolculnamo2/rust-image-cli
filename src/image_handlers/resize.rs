@@ -14,10 +14,7 @@ pub fn handle_resize(image_path: String) {
 
     let options = vec!["thumbnail", "small", "medium", "large"];
     let resize_option_result = Select::new("Select a size", options).prompt();
-    let resize_option = match resize_option_result {
-        Err(e) => panic!("Resize option response error {}", e),
-        Ok(o) => o,
-    };
+    let resize_option = resize_option_result.unwrap_or_else(|e| panic!("Resize option response error {}", e));
 
     let user_input_width_selection = match resize_option {
         "thumbnail" => 100,
