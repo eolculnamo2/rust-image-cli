@@ -22,13 +22,12 @@ fn main() {
     let options = vec!["resize", "flip", "blur", "unsharpen", "cancel"];
     let image_action = Select::new("Select an action", options).prompt();
 
-    if let Ok(img_action) = image_action {
-        match img_action {
-            "resize" => handle_resize(args.image_path),
-            "flip" => handle_flip(args.image_path),
-            "blur" => handle_blur(args.image_path),
-            "unsharpen" => handle_unsharpen(args.image_path),
-            _ => println!("canceling"),
-        };
-    }
+    let img_action = image_action.unwrap_or_else(|e| panic!("Image action selection error: {}", e));
+    match img_action {
+        "resize" => handle_resize(args.image_path),
+        "flip" => handle_flip(args.image_path),
+        "blur" => handle_blur(args.image_path),
+        "unsharpen" => handle_unsharpen(args.image_path),
+        _ => println!("canceling"),
+    };
 }
